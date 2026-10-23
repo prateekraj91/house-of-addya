@@ -83,7 +83,7 @@ export default function Footer() {
                 100% Secure Checkout
               </h5>
               <p className="text-stone-400 text-xs mt-0.5">
-                Encrypted UPI, Cards, NetBanking & COD
+                Direct UPI, Bank Transfer & COD
               </p>
             </div>
           </div>

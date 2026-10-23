@@ -1816,17 +1816,17 @@ export default function AdminPage() {
 
                     <div>
                       <label className="block text-stone-700 font-bold mb-1">
-                        Razorpay Key ID (Cards & NetBanking)
+                        Razorpay Merchant Key (Optional Future Gateway)
                       </label>
                       <input
                         type="text"
-                        placeholder="rzp_live_xxxxxxxx or rzp_test_xxxxxxxx"
+                        placeholder="rzp_live_xxxxxxxx (Optional)"
                         value={settingsForm.razorpayKeyId || ""}
                         onChange={(e) => setSettingsForm({ ...settingsForm, razorpayKeyId: e.target.value })}
                         className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl font-mono text-stone-800"
                       />
                       <p className="text-[10px] text-stone-400 mt-1">
-                        From your Razorpay Dashboard → Settings → API Keys.
+                        Optional: Leave empty for direct zero-fee settlement. Direct UPI and Punjab National Bank are active by default.
                       </p>
                     </div>
 
@@ -1910,7 +1910,7 @@ export default function AdminPage() {
                         className="w-4 h-4 text-pink-600 rounded focus:ring-pink-500"
                       />
                       <label htmlFor="razorpayEnabled" className="text-xs font-semibold text-stone-800 cursor-pointer">
-                        Enable Razorpay Gateway (Cards, NetBanking, Wallets)
+                        Enable Online Gateway (Cards & NetBanking via Razorpay)
                       </label>
                     </div>
 

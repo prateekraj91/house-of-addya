@@ -333,7 +333,7 @@ export default function CartPage() {
                 <ShieldCheck className="w-4 h-4 text-pink-600" />
                 <span>Encrypted 256-bit Bank Grade Security</span>
               </p>
-              <p>UPI, Credit/Debit Cards, NetBanking & COD supported</p>
+              <p>Direct UPI, Bank Transfer & COD supported</p>
             </div>
           </div>
         </div>

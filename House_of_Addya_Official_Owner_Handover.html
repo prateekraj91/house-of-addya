@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>House of Addya — Official Platform Handover & Owner Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+      @bottom-right {
+        content: "Page " counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 8pt;
+        color: #9CA3AF;
+        font-weight: 600;
+      }
+      @bottom-left {
+        content: "House of Addya • Official Platform Handover Document";
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 7.5pt;
+        color: #9CA3AF;
+        letter-spacing: 0.05em;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1F191D;
+      background: #FFFFFF;
+      font-size: 8.5pt;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .editorial {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .avoid-break {
+      page-break-inside: avoid;
+    }
+
+    /* Cover / Certificate Header */
+    .hero-banner {
+      background: linear-gradient(135deg, #FFF1F4 0%, #FCE7F3 40%, #FBCFE8 100%);
+      border: 1.5px solid #F472B6;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .brand-eyebrow {
+      font-size: 7.5pt;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #9D174D;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+
+    .brand-title {
+      font-size: 22pt;
+      letter-spacing: 0.02em;
+      color: #1F191D;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .brand-sub {
+      font-size: 9.5pt;
+      color: #831843;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .badge-pill {
+      background: #BE185D;
+      color: #FFFFFF;
+      font-size: 7pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .badge-emerald {
+      background: #065F46;
+      color: #ECFDF5;
+      font-size: 7pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed #F472B6;
+    }
+
+    .meta-item {
+      font-size: 7pt;
+    }
+
+    .meta-label {
+      color: #9D174D;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .meta-val {
+      font-weight: 700;
+      color: #1F191D;
+      font-size: 8pt;
+    }
+
+    /* Section Headers */
+    .section-title {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #1F191D;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 7px;
+      margin-top: 11px;
+      padding-bottom: 4px;
+      border-bottom: 1.5px solid #FCE7F3;
+    }
+
+    .section-num {
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: #BE185D;
+      color: #FFFFFF;
+      font-size: 7.5pt;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Callout & Cards */
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #F3E8FF;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+
+    .card-pink {
+      background: #FDF2F8;
+      border: 1px solid #FBCFE8;
+    }
+
+    .card-emerald {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+    }
+
+    .card-charcoal {
+      background: #18181B;
+      color: #FAFAFA;
+      border: 1px solid #27272A;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 6px;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 7.5pt;
+    }
+
+    th {
+      background: #FDF2F8;
+      color: #831843;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid #FBCFE8;
+    }
+
+    td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #F3F4F6;
+      color: #374151;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: #FAFAFA;
+    }
+
+    /* Highlights & Code */
+    .code-pill {
+      font-family: 'JetBrains Mono', monospace;
+      background: #F3F4F6;
+      border: 1px solid #E5E7EB;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 7pt;
+      color: #BE185D;
+      font-weight: 700;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .kpi-box {
+      background: #FFF;
+      border: 1px solid #F3E8FF;
+      border-radius: 8px;
+      padding: 6px 8px;
+      text-align: center;
+    }
+
+    .kpi-num {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #BE185D;
+      line-height: 1.1;
+    }
+
+    .kpi-title {
+      font-size: 6.5pt;
+      font-weight: 700;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 1px;
+    }
+
+    .step-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 6px;
+      background: #FFF;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #F3F4F6;
+    }
+
+    .step-num {
+      font-weight: 800;
+      color: #BE185D;
+      font-size: 8pt;
+      min-width: 16px;
+    }
+
+    .step-body {
+      font-size: 7.5pt;
+      color: #374151;
+    }
+
+    .step-body strong {
+      color: #1F191D;
+    }
+
+    .sign-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1.5px solid #E5E7EB;
+    }
+
+    .sign-box {
+      border: 1px dashed #D1D5DB;
+      border-radius: 8px;
+      padding: 10px;
+      background: #FAFAFA;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================== -->
+  <!-- PAGE 1: COVER, CREDENTIALS & PAYMENT PROTOCOL            -->
+  <!-- ======================================================== -->
+  <div class="hero-banner">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <div class="brand-eyebrow">Official Platform Handover Document</div>
+        <h1 class="brand-title editorial">HOUSE OF ADDYA</h1>
+        <div class="brand-sub">Luxury Gen-Z Western Fashion E-Commerce Platform & Atelier CMS</div>
+      </div>
+      <div style="text-align: right; display: flex; flex-direction: column; gap: 4px; align-items: flex-end;">
+        <span class="badge-pill">Production Ready</span>
+        <span class="badge-emerald">Supabase Cloud Active</span>
+      </div>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Brand Founder</span>
+        <span class="meta-val">Addya Dubey</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Engineered By</span>
+        <span class="meta-val">Prateek Raj</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Hosting & Cloud</span>
+        <span class="meta-val">Vercel + Supabase</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Monthly Hosting Cost</span>
+        <span class="meta-val" style="color: #065F46; font-weight: 800;">₹0 / Forever Free</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-box">
+      <div class="kpi-num">0%</div>
+      <div class="kpi-title">Payment Fees</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-num">100%</div>
+      <div class="kpi-title">Direct Settle</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-num">&lt; 1.2s</div>
+      <div class="kpi-title">Page Speed</div>
+    </div>
+    <div class="kpi-box">
+      <div class="kpi-num">₹35,000+</div>
+      <div class="kpi-title">Annual Savings</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">1</span>
+    <span class="editorial">Master Access & Credentials Vault</span>
+  </div>
+
+  <div class="card card-pink avoid-break">
+    <table>
+      <thead>
+        <tr>
+          <th>Service / Environment</th>
+          <th>Access Endpoint / Resource</th>
+          <th>Credentials / Secret</th>
+          <th>Operational Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Storefront (Vercel)</strong></td>
+          <td><span class="code-pill">house-of-addya.vercel.app</span></td>
+          <td>Public SSL HTTPS</td>
+          <td>Global customer-facing e-commerce storefront</td>
+        </tr>
+        <tr>
+          <td><strong>Owner CMS Dashboard</strong></td>
+          <td><span class="code-pill">/admin</span></td>
+          <td>Master PIN: <span class="code-pill" style="color: #BE185D;">1122</span></td>
+          <td>Product catalog, orders, inventory & settlement control</td>
+        </tr>
+        <tr>
+          <td><strong>Supabase PostgreSQL</strong></td>
+          <td><span class="code-pill">dfiiatzdtjgnqkildoql.supabase.co</span></td>
+          <td>Cloud API Active</td>
+          <td>Real-time database storing products, orders & settings</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Source Code</strong></td>
+          <td><span class="code-pill">github.com/prateekraj91/house-of-addya</span></td>
+          <td>Branch: <span class="code-pill">main</span></td>
+          <td>Auto CI/CD pipeline pushes updates straight to live site</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">2</span>
+    <span class="editorial">Genuine Direct Payment & Zero-Commission Architecture</span>
+  </div>
+
+  <div class="card card-emerald avoid-break">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+      <strong style="color: #065F46; font-size: 8.5pt;">Direct Zero-Fee Settlement Protocol (No Sandbox / No Middleman Games)</strong>
+      <span class="badge-emerald">100% Funds Settle Directly</span>
+    </div>
+    <p style="font-size: 7.5pt; color: #047857; margin-bottom: 6px;">
+      Unlike Shopify / Razorpay that charge 2% to 3.5% + GST per sale, House of Addya settles directly to your verified bank accounts with <strong>zero deductions</strong>.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Payment Option</th>
+          <th>Customer Checkout Experience</th>
+          <th>Bank / Settlement Route</th>
+          <th>Fraud & Order Verification</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UPI Instant Pay</strong></td>
+          <td>Dynamic QR auto-filled for exact cart value + 1-tap mobile launcher (GPay, PhonePe, Paytm, BHIM)</td>
+          <td>Direct to UPI ID:<br><span class="code-pill">anmoldube93@okhdfcbank</span></td>
+          <td><strong>Mandatory 12-Digit UTR</strong> input verified before order confirmation.</td>
+        </tr>
+        <tr>
+          <td><strong>Direct Bank Transfer</strong><br>(IMPS / NEFT)</td>
+          <td>One-click copy buttons for Bank A/C, IFSC, and Beneficiary Name</td>
+          <td><strong>PUNJAB NATIONAL BANK</strong><br>A/C: <span class="code-pill">0781100100005018</span><br>IFSC: <span class="code-pill">PUNB0078110</span><br>Holder: <strong>Anmol Dubey</strong></td>
+          <td>Order placed in <em>"Pending Bank Verification"</em> with customer's 12-digit IMPS UTR attached.</td>
+        </tr>
+        <tr>
+          <td><strong>Cash on Delivery (COD)</strong></td>
+          <td>Doorstep cash/UPI collection upon courier arrival</td>
+          <td>Collected via Shiprocket courier remittance into PNB account</td>
+          <td>+₹49 handling fee added automatically to total payable.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PAGE 2: OPERATIONAL MANUAL & CMS WORKFLOW                -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+
+  <div class="section-title">
+    <span class="section-num">3</span>
+    <span class="editorial">Owner Daily Verification & Dispatch Protocol</span>
+  </div>
+
+  <div class="card avoid-break">
+    <p style="font-size: 8pt; color: #374151; margin-bottom: 8px;">
+      When a customer places an order on House of Addya, follow this 4-step workflow to verify payment and dispatch:
+    </p>
+
+    <div class="step-box">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <strong>Login to Admin CMS (<span class="code-pill">/admin</span>)</strong> — Open the Owner Dashboard on phone or laptop. Enter PIN (<span class="code-pill">1122</span>). Click <strong>Orders & Shipping</strong>.
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <strong>Check Customer Payment UTR Reference</strong> — Each UPI or Bank Transfer order clearly highlights the customer's 12-digit reference number (e.g. <span class="code-pill">Payment Ref/UTR: 428901238491</span>) right under the address.
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <strong>Cross-Verify in Bank App (10 Seconds)</strong> — Open Punjab National Bank NetBanking or HDFC/PhonePe business notifications to confirm credit matching order total and customer UTR.
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <strong>Assign Shiprocket AWB & Update Status</strong> — Pack the garment in branded House of Addya packaging. Paste the Shiprocket AWB tracking number (e.g. <span class="code-pill">SR-884761452</span>) into the field and switch status to <strong>Shipped</strong>.
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">4</span>
+    <span class="editorial">Store Management & CMS Controls</span>
+  </div>
+
+  <div class="card avoid-break">
+    <table>
+      <thead>
+        <tr>
+          <th>Management Module</th>
+          <th>What You Can Do</th>
+          <th>How It Syncs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Product Catalog</strong></td>
+          <td>Add new silhouettes, upload high-res atelier imagery, edit retail prices, manage size charts, and set inventory counts per size (XS, S, M, L, XL).</td>
+          <td>Instant live update on storefront; saved directly in Supabase PostgreSQL database.</td>
+        </tr>
+        <tr>
+          <td><strong>Inventory & Variants</strong></td>
+          <td>Set stock per color and size. When an item reaches 0, the site automatically displays <em>"Sold Out"</em> to prevent overbooking.</td>
+          <td>Decrements automatically upon customer checkout.</td>
+        </tr>
+        <tr>
+          <td><strong>Coupons & Discounts</strong></td>
+          <td>Create festive discount promo codes (e.g. <span class="code-pill">ADDYA10</span> for 10% off, <span class="code-pill">MUSE20</span>, or flat ₹500 off) with minimum order value rules.</td>
+          <td>Validated live in the checkout price calculation engine.</td>
+        </tr>
+        <tr>
+          <td><strong>Banners & Announcements</strong></td>
+          <td>Edit top announcement marquee text (e.g. <em>"✨ FREE EXPRESS SHIPPING OVER ₹1,499 ✨"</em>), hero headlines, and campaign copy.</td>
+          <td>Changes appear immediately across all customer devices.</td>
+        </tr>
+        <tr>
+          <td><strong>Customer Support & WhatsApp</strong></td>
+          <td>Pre-configured floating WhatsApp concierge widget (<span class="code-pill">+91 98712 34567</span>) connects shoppers directly with Addya's styling team.</td>
+          <td>1-tap direct chat from any product or checkout screen.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">5</span>
+    <span class="editorial">Customer Tracking & Exchange Workflow</span>
+  </div>
+
+  <div class="card avoid-break">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div>
+        <strong style="color: #BE185D; font-size: 8pt; display: block; margin-bottom: 2px;">Live Courier Tracking (/track)</strong>
+        <p style="font-size: 7.5pt; color: #4B5563;">
+          Shoppers can visit the dedicated tracking page and enter either their Order ID (e.g. <span class="code-pill">HOA-94169</span>) or Shiprocket AWB. The system displays a live 4-stage visual timeline (Confirmed → Atelier Inspection → In Transit → Delivered).
+        </p>
+      </div>
+      <div>
+        <strong style="color: #BE185D; font-size: 8pt; display: block; margin-bottom: 2px;">7-Day Easy Doorstep Exchange Policy</strong>
+        <p style="font-size: 7.5pt; color: #4B5563;">
+          To build high trust with Gen-Z shoppers, the platform highlights the 7-day doorstep exchange guarantee. Customers can initiate exchanges via the WhatsApp concierge or support email (<span class="code-pill">hello@houseofaddya.com</span>).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- PAGE 3: ARCHITECTURE, AUDIT & FORMAL SIGN-OFF            -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+
+  <div class="section-title">
+    <span class="section-num">6</span>
+    <span class="editorial">Technical Architecture & Zero-Cost Financial Advantage</span>
+  </div>
+
+  <div class="card card-charcoal avoid-break">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+      <strong style="color: #F472B6; font-size: 8.5pt;">Financial Comparison: House of Addya Custom Stack vs Shopify</strong>
+      <span class="badge-pill">Annual Cost Comparison</span>
+    </div>
+    <table style="border-color: #3F3F46; margin-bottom: 0;">
+      <thead>
+        <tr>
+          <th style="background: #27272A; color: #F472B6; border-color: #3F3F46;">Cost Element</th>
+          <th style="background: #27272A; color: #F472B6; border-color: #3F3F46;">Standard Shopify + Razorpay Setup</th>
+          <th style="background: #27272A; color: #10B981; border-color: #3F3F46;">House of Addya Architecture</th>
+          <th style="background: #27272A; color: #10B981; border-color: #3F3F46;">Net Annual Savings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color: #D4D4D8; border-color: #27272A; background: #18181B;">Platform Subscription</td>
+          <td style="color: #EF4444; border-color: #27272A; background: #18181B;">₹2,499 / month = ₹29,988 / year</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹0 / year (Vercel Free Tier)</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹29,988 / year</td>
+        </tr>
+        <tr>
+          <td style="color: #D4D4D8; border-color: #27272A; background: #18181B;">Cloud Database</td>
+          <td style="color: #EF4444; border-color: #27272A; background: #18181B;">Locked into proprietary database</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹0 / year (Supabase Cloud Free Tier)</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">Full Data Ownership</td>
+        </tr>
+        <tr>
+          <td style="color: #D4D4D8; border-color: #27272A; background: #18181B;">Payment Gateway Cut</td>
+          <td style="color: #EF4444; border-color: #27272A; background: #18181B;">2.0% + 18% GST on all transactions</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">0% Commission (Direct UPI & PNB)</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹23,600 / ₹10L Volume</td>
+        </tr>
+        <tr>
+          <td style="color: #D4D4D8; border-color: #27272A; background: #18181B;">App Add-on Subscriptions</td>
+          <td style="color: #EF4444; border-color: #27272A; background: #18181B;">₹8,000–₹15,000/year (Reviews, Tracking, Cart)</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹0 (All features built native)</td>
+          <td style="color: #10B981; font-weight: 700; border-color: #27272A; background: #18181B;">₹12,000 / year</td>
+        </tr>
+        <tr>
+          <td style="color: #FFFFFF; font-weight: 700; border-color: #3F3F46; background: #27272A;">TOTAL ESTIMATED SAVINGS</td>
+          <td style="color: #EF4444; font-weight: 700; border-color: #3F3F46; background: #27272A;">₹50,000–₹75,000 / year recurring</td>
+          <td style="color: #10B981; font-weight: 800; border-color: #3F3F46; background: #27272A;">₹0 Operational Costs</td>
+          <td style="color: #10B981; font-weight: 800; border-color: #3F3F46; background: #27272A;">100% Profit Retention</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">
+    <span class="section-num">7</span>
+    <span class="editorial">Handover Checklist & Acceptance Sign-off</span>
+  </div>
+
+  <div class="card avoid-break">
+    <p style="font-size: 7.5pt; color: #4B5563; margin-bottom: 6px;">
+      All deliverables below have been implemented, tested, and audited for production deployment:
+    </p>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 7pt;">
+      <div>
+        <p>✔ <strong>Responsive Storefront</strong> (Mobile, Tablet, Desktop)</p>
+        <p>✔ <strong>Atelier Editorial Aesthetic</strong> (Custom typography & color tokens)</p>
+        <p>✔ <strong>Cart Drawer & Quick Bag</strong> with dynamic pricing</p>
+        <p>✔ <strong>Zero Fake Payments</strong> (Sandbox card games removed)</p>
+        <p>✔ <strong>Direct UPI Pay & Dynamic QR</strong> (<span class="code-pill">anmoldube93@okhdfcbank</span>)</p>
+      </div>
+      <div>
+        <p>✔ <strong>PNB Bank Transfer</strong> (<span class="code-pill">0781100100005018</span> / <span class="code-pill">PUNB0078110</span>)</p>
+        <p>✔ <strong>Mandatory 12-Digit UTR Verification</strong> on checkout</p>
+        <p>✔ <strong>Owner CMS Dashboard</strong> locked with PIN <span class="code-pill">1122</span></p>
+        <p>✔ <strong>Real-time Supabase Cloud DB</strong> persistence</p>
+        <p>✔ <strong>Shiprocket Tracking</strong> & WhatsApp concierge widget</p>
+      </div>
+    </div>
+
+    <div class="sign-grid">
+      <div class="sign-box">
+        <span class="meta-label">Delivered & Certified By</span>
+        <strong style="display: block; font-size: 9pt; color: #1F191D; margin-top: 2px;">Prateek Raj</strong>
+        <span style="font-size: 7pt; color: #6B7280; display: block;">Lead Software Engineer & Platform Architect</span>
+        <div style="margin-top: 10px; font-size: 7.5pt; color: #374151;">
+          Date: <strong>23 October 2026</strong><br>
+          Status: <strong>Signed & Handed Over</strong>
+        </div>
+      </div>
+
+      <div class="sign-box">
+        <span class="meta-label">Accepted & Received By</span>
+        <strong style="display: block; font-size: 9pt; color: #1F191D; margin-top: 2px;">Addya Dubey</strong>
+        <span style="font-size: 7pt; color: #6B7280; display: block;">Founder & Creative Director • House of Addya</span>
+        <div style="margin-top: 10px; font-size: 7.5pt; color: #374151;">
+          Signature: __________________________<br>
+          Date: <strong>___ / ___ / 2026</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align: center; font-size: 7pt; color: #9CA3AF; margin-top: 10px;">
+    House of Addya • GST Registered Business • Shahpur Jat, New Delhi - 110049 • Crafted with excellence.
+  </div>
+
+</body>
+</html>

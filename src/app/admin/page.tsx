@@ -1344,6 +1344,16 @@ export default function AdminPage() {
                           {ord.customer.apartment && `${ord.customer.apartment}, `}
                           {ord.customer.city}, {ord.customer.state} - {ord.customer.pincode}
                         </div>
+
+                        {ord.customer.notes && (
+                          <div className="p-2.5 bg-pink-50 rounded-xl border border-pink-200 text-stone-800 text-[11px] font-medium flex items-start gap-2">
+                            <FileText className="w-3.5 h-3.5 text-pink-600 mt-0.5 flex-shrink-0" />
+                            <div>
+                              <span className="font-bold text-pink-900 block">Payment Reference / Notes:</span>
+                              <span className="font-mono">{ord.customer.notes}</span>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
 

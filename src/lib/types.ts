@@ -59,8 +59,8 @@ export interface Order {
   shippingFee: number;
   codFee: number;
   total: number;
-  paymentMethod: "UPI" | "Card" | "NetBanking" | "COD";
-  paymentStatus: "Paid" | "Pending" | "COD Confirmed";
+  paymentMethod: "UPI" | "NetBanking" | "COD";
+  paymentStatus: string;
   orderStatus: "Order Confirmed" | "Processing" | "Packed" | "Shipped" | "Delivered" | "Cancelled";
   trackingNumber?: string;
   courierPartner?: string;

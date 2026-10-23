@@ -319,20 +319,17 @@ export default function Footer() {
 
         {/* Payment Icons */}
         <div className="flex items-center gap-2 flex-wrap justify-center text-[11px] text-stone-400">
-          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium">
-            UPI (GPay / PhonePe / Paytm)
+          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium text-stone-300">
+            UPI (GPay • PhonePe • Paytm • BHIM)
           </span>
-          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium">
-            RuPay
+          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium text-stone-300">
+            Punjab National Bank (IMPS / NEFT)
           </span>
-          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium">
-            Visa / Mastercard
+          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium text-stone-300">
+            Cash on Delivery (COD)
           </span>
-          <span className="px-2.5 py-1 bg-stone-900 rounded border border-stone-800 font-medium">
-            COD Available
-          </span>
-          <span className="px-2.5 py-1 bg-pink-950/60 text-pink-300 rounded border border-pink-900/60 font-semibold">
-            Razorpay Secure
+          <span className="px-2.5 py-1 bg-emerald-950/60 text-emerald-300 rounded border border-emerald-900/60 font-semibold">
+            Direct Zero-Fee Settlement
           </span>
         </div>
       </div>

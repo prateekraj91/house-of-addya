@@ -51,13 +51,14 @@ export default function CheckoutPage() {
   });
 
   const [paymentMethod, setPaymentMethod] = useState<
-    "UPI" | "Card" | "NetBanking" | "COD"
+    "UPI" | "NetBanking" | "COD"
   >("UPI");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [razorpayModalOpen, setRazorpayModalOpen] = useState(false);
+  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
   const [utrNumber, setUtrNumber] = useState("");
+  const [utrError, setUtrError] = useState("");
 
   const copyToClipboard = (text: string, fieldName: string) => {
     try {
@@ -91,14 +92,34 @@ export default function CheckoutPage() {
     if (paymentMethod === "COD") {
       completeOrderPlacement("COD", "COD Confirmed");
     } else {
-      // Open simulated Razorpay modal
-      setRazorpayModalOpen(true);
+      setUtrError("");
+      setPaymentModalOpen(true);
     }
   };
 
+  const handleConfirmPrepaidPayment = () => {
+    const trimmedUtr = utrNumber.trim();
+    if (!trimmedUtr || trimmedUtr.length < 6) {
+      setUtrError(
+        paymentMethod === "UPI"
+          ? "Please enter your 12-digit UPI Reference / UTR Number from Google Pay / PhonePe / Paytm after completing the payment."
+          : "Please enter the 12-digit IMPS / NEFT Reference / UTR Number from your banking app after completing the transfer."
+      );
+      return;
+    }
+
+    setUtrError("");
+    const statusText =
+      paymentMethod === "UPI"
+        ? `Paid (UPI UTR: ${trimmedUtr})`
+        : `Pending Bank Verification (IMPS UTR: ${trimmedUtr})`;
+
+    completeOrderPlacement(paymentMethod, statusText);
+  };
+
   const completeOrderPlacement = (
-    method: "UPI" | "Card" | "NetBanking" | "COD",
-    status: "Paid" | "COD Confirmed"
+    method: "UPI" | "NetBanking" | "COD",
+    status: string
   ) => {
     setIsProcessing(true);
     setTimeout(() => {
@@ -106,7 +127,7 @@ export default function CheckoutPage() {
         customer: {
           ...form,
           notes: utrNumber
-            ? `${form.notes ? form.notes + " • " : ""}Payment Ref/UTR: ${utrNumber}`
+            ? `${form.notes ? form.notes + " • " : ""}Payment Ref/UTR: ${utrNumber.trim()}`
             : form.notes,
         },
         items: cart,
@@ -122,7 +143,7 @@ export default function CheckoutPage() {
 
       setConfirmedOrder(order);
       setIsProcessing(false);
-      setRazorpayModalOpen(false);
+      setPaymentModalOpen(false);
 
       // Trigger celebratory confetti
       confetti({
@@ -472,34 +493,6 @@ export default function CheckoutPage() {
                 )}
               </div>
 
-              {/* Cards Option */}
-              <label
-                className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${
-                  paymentMethod === "Card"
-                    ? "border-pink-600 bg-pink-50/50"
-                    : "border-stone-200 hover:border-pink-200"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    checked={paymentMethod === "Card"}
-                    onChange={() => setPaymentMethod("Card")}
-                    className="accent-pink-600"
-                  />
-                  <div>
-                    <span className="font-bold text-xs sm:text-sm text-stone-900 block">
-                      Credit / Debit Card (Visa / Mastercard / RuPay)
-                    </span>
-                    <span className="text-[11px] text-stone-500">
-                      Razorpay 3D Secure OTP verification
-                    </span>
-                  </div>
-                </div>
-                <CreditCard className="w-5 h-5 text-pink-600" />
-              </label>
-
               {/* NetBanking / Bank Transfer Option */}
               <div
                 onClick={() => setPaymentMethod("NetBanking")}
@@ -759,26 +752,26 @@ export default function CheckoutPage() {
         </div>
       </form>
 
-      {/* Tailored Payment Modal */}
-      {razorpayModalOpen && (
+      {/* Real Pre-Paid Verification Modal (UPI & PNB Bank Transfer) */}
+      {paymentModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setRazorpayModalOpen(false)}
+            onClick={() => setPaymentModalOpen(false)}
           />
           <div className="relative bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 z-10 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-3 border-b border-stone-200">
               <div className="flex items-center gap-2">
                 <span className="px-2 py-0.5 bg-pink-100 text-pink-700 rounded text-[10px] font-bold uppercase tracking-wider">
-                  {paymentMethod === "UPI" ? "UPI Direct" : paymentMethod === "NetBanking" ? "Bank Transfer" : "Razorpay"}
+                  {paymentMethod === "UPI" ? "UPI Instant Pay" : "Bank Transfer"}
                 </span>
                 <span className="text-xs font-semibold text-stone-600">
                   {settings.brandName || "House of Addya"}
                 </span>
               </div>
               <button
-                onClick={() => setRazorpayModalOpen(false)}
+                onClick={() => setPaymentModalOpen(false)}
                 className="text-stone-400 hover:text-stone-700 p-1 rounded-lg"
               >
                 <X className="w-5 h-5" />
@@ -792,6 +785,13 @@ export default function CheckoutPage() {
                 ₹{finalPayable.toLocaleString("en-IN")}
               </h3>
             </div>
+
+            {/* Error Message */}
+            {utrError && (
+              <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 font-medium">
+                {utrError}
+              </div>
+            )}
 
             {/* 1. UPI Payment Mode */}
             {paymentMethod === "UPI" && (
@@ -818,7 +818,7 @@ export default function CheckoutPage() {
                       <span>Scan with GPay, PhonePe, Paytm, or BHIM</span>
                     </div>
                     <p className="text-[11px] text-stone-400">
-                      Auto-fills exact amount of <strong>₹{finalPayable.toLocaleString("en-IN")}</strong>
+                      Exact payable: <strong>₹{finalPayable.toLocaleString("en-IN")}</strong>
                     </p>
                   </div>
                 </div>
@@ -826,7 +826,7 @@ export default function CheckoutPage() {
                 {/* VPA Copy Bar */}
                 <div className="p-3 bg-pink-50/60 rounded-xl border border-pink-100 flex items-center justify-between text-xs">
                   <div>
-                    <span className="text-[10px] text-stone-400 uppercase font-bold block">UPI VPA</span>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">Official UPI ID</span>
                     <span className="font-mono font-bold text-pink-700">
                       {settings.upiId || "anmoldube93@okhdfcbank"}
                     </span>
@@ -867,24 +867,31 @@ export default function CheckoutPage() {
 
                 {/* UTR Input */}
                 <div>
-                  <label className="block text-[11px] font-semibold text-stone-600 mb-1">
-                    UPI Reference / UTR Number (Optional)
+                  <label className="block text-[11px] font-semibold text-stone-700 mb-1">
+                    UPI Reference / 12-Digit UTR Number <span className="text-pink-600">*</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. 428901238491"
+                    placeholder="Enter 12-digit UTR from your UPI payment receipt"
                     value={utrNumber}
-                    onChange={(e) => setUtrNumber(e.target.value)}
+                    onChange={(e) => {
+                      setUtrNumber(e.target.value);
+                      if (utrError) setUtrError("");
+                    }}
                     className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl font-mono text-xs focus:outline-none focus:border-pink-500"
                   />
+                  <p className="text-[10px] text-stone-400 mt-1">
+                    Found in Google Pay / PhonePe / Paytm transaction details after completing payment.
+                  </p>
                 </div>
 
                 <button
-                  onClick={() => completeOrderPlacement("UPI", "Paid")}
+                  type="button"
+                  onClick={handleConfirmPrepaidPayment}
                   className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>I Have Paid ₹{finalPayable.toLocaleString("en-IN")} • Confirm Order</span>
+                  <span>Confirm UPI Payment • Place Order</span>
                 </button>
               </div>
             )}
@@ -899,7 +906,7 @@ export default function CheckoutPage() {
                       <span>{settings.bankName || "PUNJAB NATIONAL BANK"}</span>
                     </span>
                     <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
-                      0% Fee
+                      Direct Settlement
                     </span>
                   </div>
 
@@ -938,69 +945,31 @@ export default function CheckoutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-stone-600 mb-1">
-                    IMPS / NEFT Transfer Reference (UTR) Number *
+                  <label className="block text-[11px] font-semibold text-stone-700 mb-1">
+                    IMPS / NEFT Transfer Reference (UTR) Number <span className="text-pink-600">*</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="Enter 12-digit UTR from your bank app"
+                    placeholder="Enter 12-digit UTR from your bank transfer"
                     value={utrNumber}
-                    onChange={(e) => setUtrNumber(e.target.value)}
+                    onChange={(e) => {
+                      setUtrNumber(e.target.value);
+                      if (utrError) setUtrError("");
+                    }}
                     className="w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl font-mono text-xs focus:outline-none focus:border-pink-500"
                   />
+                  <p className="text-[10px] text-stone-400 mt-1">
+                    Enter the UTR reference number generated upon completing the IMPS / NEFT transfer.
+                  </p>
                 </div>
 
                 <button
-                  onClick={() => completeOrderPlacement("NetBanking", "Paid")}
+                  type="button"
+                  onClick={handleConfirmPrepaidPayment}
                   className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Confirm Bank Transfer • Place Order</span>
-                </button>
-              </div>
-            )}
-
-            {/* 3. Card Mode */}
-            {paymentMethod === "Card" && (
-              <div className="space-y-4">
-                <div className="bg-stone-50 border border-stone-200 p-4 rounded-2xl space-y-3 text-xs">
-                  <div>
-                    <label className="block text-stone-600 font-semibold mb-1">Card Number</label>
-                    <input
-                      type="text"
-                      placeholder="4111 •••• •••• 1111"
-                      defaultValue="4111 2345 6789 1111"
-                      className="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl font-mono"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-stone-600 font-semibold mb-1">Expiry</label>
-                      <input
-                        type="text"
-                        placeholder="MM/YY"
-                        defaultValue="08/28"
-                        className="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl font-mono"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-stone-600 font-semibold mb-1">CVV</label>
-                      <input
-                        type="password"
-                        placeholder="•••"
-                        defaultValue="789"
-                        className="w-full px-3 py-2 bg-white border border-stone-200 rounded-xl font-mono"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => completeOrderPlacement("Card", "Paid")}
-                  className="w-full py-3.5 bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
-                >
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Authorize ₹{finalPayable.toLocaleString("en-IN")} via 3D Secure</span>
                 </button>
               </div>
             )}

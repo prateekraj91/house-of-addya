@@ -539,7 +539,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({
               cod_fee: newOrder.codFee || 0,
               total: newOrder.total,
               payment_method: newOrder.paymentMethod,
-              payment_status: newOrder.paymentMethod === "COD" ? "COD Confirmed" : "Paid",
+              payment_status: newOrder.paymentStatus || (newOrder.paymentMethod === "COD" ? "COD Confirmed" : "Paid"),
               order_status: newOrder.orderStatus,
               tracking_number: newOrder.trackingNumber,
               courier_partner: newOrder.courierPartner,

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>House of Addya — Implementation Plan & Developer Checklist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 8pt;
+        color: #9CA3AF;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      color: #1F191D;
+      background: #FFFFFF;
+      font-size: 9.5pt;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .editorial {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Cover / Header Header */
+    .header {
+      background: linear-gradient(135deg, #FFF1F4 0%, #FCE7F3 50%, #FBCFE8 100%);
+      border: 1.5px solid #F472B6;
+      border-radius: 18px;
+      padding: 24px 28px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .brand-eyebrow {
+      font-size: 8pt;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #BE185D;
+      font-weight: 800;
+    }
+
+    .brand-title {
+      font-size: 26pt;
+      letter-spacing: 0.04em;
+      color: #1F191D;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-top: 2px;
+    }
+
+    .brand-sub {
+      font-size: 11pt;
+      color: #831843;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .badge-pill {
+      background: #BE185D;
+      color: #FFFFFF;
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 5px 12px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(190, 24, 93, 0.2);
+    }
+
+    .meta-item {
+      font-size: 8pt;
+    }
+
+    .meta-label {
+      color: #9D174D;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      font-size: 7pt;
+      display: block;
+    }
+
+    .meta-val {
+      font-weight: 700;
+      color: #1F191D;
+      margin-top: 1px;
+    }
+
+    /* Section Styling */
+    .section {
+      margin-bottom: 22px;
+      page-break-inside: avoid;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid #FBCFE8;
+    }
+
+    .section-num {
+      width: 24px;
+      height: 24px;
+      background: #BE185D;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      font-weight: 800;
+    }
+
+    .section-title {
+      font-size: 13pt;
+      color: #1F191D;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .section-desc {
+      font-size: 8.5pt;
+      color: #6B7280;
+      margin-left: auto;
+      font-weight: 500;
+    }
+
+    /* Checklist Card */
+    .phase-card {
+      background: #FFFFFF;
+      border: 1.5px solid #F3E8EC;
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      page-break-inside: avoid;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed #FCE7F3;
+    }
+
+    .phase-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .phase-tag {
+      font-size: 7pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .tag-pink { background: #FCE7F3; color: #BE185D; }
+    .tag-purple { background: #EDE9FE; color: #6D28D9; }
+    .tag-emerald { background: #D1FAE5; color: #047857; }
+    .tag-amber { background: #FEF3C7; color: #B45309; }
+    .tag-blue { background: #DBEAFE; color: #1D4ED8; }
+
+    .phase-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #1F191D;
+    }
+
+    .phase-eta {
+      font-size: 7.5pt;
+      font-weight: 700;
+      color: #6B7280;
+      background: #F3F4F6;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+
+    .checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      font-size: 8.8pt;
+    }
+
+    .checkbox {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid #D1D5DB;
+      border-radius: 3.5px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      background: #FAFAFA;
+    }
+
+    .check-text {
+      flex: 1;
+      color: #374151;
+    }
+
+    .check-text strong {
+      color: #111827;
+      font-weight: 700;
+    }
+
+    .code-inline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      background: #F3F4F6;
+      color: #BE185D;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    .tip-box {
+      margin-top: 8px;
+      background: #FFF5F7;
+      border-left: 3px solid #EC4899;
+      padding: 6px 10px;
+      border-radius: 0 8px 8px 0;
+      font-size: 8pt;
+      color: #9D174D;
+    }
+
+    .tip-box strong {
+      color: #831843;
+    }
+
+    /* Summary Table */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.2pt;
+      margin-top: 8px;
+    }
+
+    table.data-table th {
+      background: #FDF2F4;
+      color: #831843;
+      text-align: left;
+      padding: 6px 10px;
+      font-weight: 700;
+      border-bottom: 1.5px solid #FBCFE8;
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table.data-table td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #F3F4F6;
+      color: #374151;
+    }
+
+    table.data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    /* Handover Box */
+    .handover-box {
+      background: linear-gradient(135deg, #181116 0%, #291C25 100%);
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-top: 14px;
+    }
+
+    .handover-title {
+      font-size: 13pt;
+      color: #FCE7F3;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .agenda-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(244, 114, 182, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .agenda-time {
+      font-size: 7.5pt;
+      color: #F472B6;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .agenda-heading {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 2px;
+    }
+
+    .agenda-desc {
+      font-size: 7.5pt;
+      color: #D1D5DB;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 8pt;
+      color: #9CA3AF;
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px solid #E5E7EB;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <span class="brand-eyebrow">House of Addya • Atelier New Delhi</span>
+        <h1 class="brand-title editorial">Developer Master Implementation Plan</h1>
+        <p class="brand-sub">End-to-End Action Checklist & Owner Self-Service Handover Protocol</p>
+      </div>
+      <span class="badge-pill">Production Ready</span>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <span class="meta-label">Founder & Client</span>
+        <span class="meta-val">Addya Dubey</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Lead Developer</span>
+        <span class="meta-val">Prateek Raj</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Target Domain</span>
+        <span class="meta-val mono">houseofaddya.com</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Recurring Cost</span>
+        <span class="meta-val" style="color: #059669;">₹0 / month (Zero server bills)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: ARCHITECTURE OVERVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2 class="section-title">Zero-Cost Infrastructure Stack</h2>
+      <span class="section-desc">Fully autonomous e-commerce engine</span>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Monthly Cost</th>
+          <th>Founder Autonomy Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Storefront & CMS</strong></td>
+          <td>Next.js 16 (App Router + Turbopack)</td>
+          <td><span style="color:#059669; font-weight:700;">₹0 / mo (Vercel Free)</span></td>
+          <td>100% — Addya manages products via <span class="code-inline">/admin</span></td>
+        </tr>
+        <tr>
+          <td><strong>Design & Theme</strong></td>
+          <td>Tailwind CSS v4 + Editorial Typography</td>
+          <td><span style="color:#059669; font-weight:700;">₹0</span></td>
+          <td>Feminine Gen-Z luxury aesthetic (<span class="code-inline">#FFF5F7</span> to <span class="code-inline">#BE185D</span>)</td>
+        </tr>
+        <tr>
+          <td><strong>State & Inventory</strong></td>
+          <td>Reactive Store Context + LocalStorage</td>
+          <td><span style="color:#059669; font-weight:700;">₹0</span></td>
+          <td>Instant live store reflection without page rebuilds</td>
+        </tr>
+        <tr>
+          <td><strong>Database</strong></td>
+          <td>Supabase PostgreSQL (<span class="code-inline">supabase/schema.sql</span>)</td>
+          <td><span style="color:#059669; font-weight:700;">₹0 (Free Tier 500MB)</span></td>
+          <td>Cloud orders, customers, and inventory backup</td>
+        </tr>
+        <tr>
+          <td><strong>Payment Gateway</strong></td>
+          <td>Razorpay + Direct Zero-Fee UPI QR</td>
+          <td><span style="color:#059669; font-weight:700;">0% setup, 2% card fee</span></td>
+          <td>UPI QR goes directly to Addya's bank (0% fee)</td>
+        </tr>
+        <tr>
+          <td><strong>Courier & Shipping</strong></td>
+          <td>Shiprocket Express (Delhivery/BlueDart)</td>
+          <td><span style="color:#059669; font-weight:700;">Pay per label (~₹45)</span></td>
+          <td>AWB tracking numbers link to live <span class="code-inline">/track</span> timeline</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 2: DEVELOPER CHECKLIST PART 1 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2 class="section-title">Developer Checklist: What You Need To Do From Your Side</h2>
+      <span class="section-desc">Action items before client handover</span>
+    </div>
+
+    <!-- PHASE 1: ADMIN SECURITY -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-pink">Phase 1</span>
+          <span class="phase-title">Admin Passkey & Security Setup</span>
+        </div>
+        <span class="phase-eta">⏱ 2 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Admin Security & Passkey Configured:</strong> Passkey defaults securely to <span class="code-inline">5692</span> (or custom <span class="code-inline">NEXT_PUBLIC_ADMIN_PIN</span> in <span class="code-inline">.env.local</span>). Demo bypass button automatically hides when custom PIN is active.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Verify PIN Gate:</strong> Open <span class="code-inline">http://localhost:3000/admin</span> in an incognito window and verify the passkey unlocks the dashboard cleanly.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Test Lock Mechanism:</strong> Click the <strong>Lock</strong> icon in the header to confirm the session is destroyed from <span class="code-inline">sessionStorage</span>.
+          </div>
+        </li>
+      </ul>
+      <div class="tip-box">
+        💡 <strong>Pro Tip:</strong> Addya can bookmark <span class="code-inline">https://houseofaddya.com/admin?pin=XXXX</span> on her iPhone Safari for instant 1-tap entry without typing every time!
+      </div>
+    </div>
+
+    <!-- PHASE 2: DATABASE -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-purple">Phase 2</span>
+          <span class="phase-title">Cloud Database Setup (Supabase Free Tier)</span>
+        </div>
+        <span class="phase-eta">⏱ 5 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Create Supabase Project:</strong> Go to <span class="code-inline">supabase.com</span> → New Project → Name: <span class="code-inline">house-of-addya</span> → Region: <strong>Mumbai (ap-south-1)</strong>.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Execute SQL Schema:</strong> Open SQL Editor in Supabase, copy the contents of <span class="code-inline">supabase/schema.sql</span>, and click <strong>Run</strong>. Creates tables: <span class="code-inline">products</span>, <span class="code-inline">site_settings</span>, <span class="code-inline">orders</span>, <span class="code-inline">coupons</span>, and <span class="code-inline">reviews</span>.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Configure API Keys in <span class="code-inline">.env.local</span>:</strong> Copy Project URL and <span class="code-inline">anon</span> public key into <span class="code-inline">NEXT_PUBLIC_SUPABASE_URL</span> and <span class="code-inline">NEXT_PUBLIC_SUPABASE_ANON_KEY</span>.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PHASE 3: PAYMENTS -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-emerald">Phase 3</span>
+          <span class="phase-title">Payment Gateway Registration (Razorpay & Direct UPI)</span>
+        </div>
+        <span class="phase-eta">⏱ 5 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Create Razorpay Account:</strong> Register at <span class="code-inline">razorpay.com</span> using Addya's business email and bank details for automated daily settlement.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Generate API Keys:</strong> Under <strong>Settings → API Keys</strong>, generate Key ID and Key Secret. Add <span class="code-inline">NEXT_PUBLIC_RAZORPAY_KEY_ID</span> to <span class="code-inline">.env.local</span>.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Official UPI & Settlement Bank Configured:</strong> Merchant UPI VPA is active as <span class="code-inline">anmoldube93@okhdfcbank</span> with direct settlement to <strong>Punjab National Bank</strong> (A/C: <span class="code-inline">0781100100005018</span>, IFSC: <span class="code-inline">PUNB0078110</span>, Beneficiary: Anmol Dubey). Direct 0% commission!
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="section">
+    <!-- PHASE 4: LOGISTICS -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-blue">Phase 4</span>
+          <span class="phase-title">Courier Logistics Setup (Shiprocket Express)</span>
+        </div>
+        <span class="phase-eta">⏱ 5 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Create Shiprocket Account:</strong> Register at <span class="code-inline">shiprocket.in</span> and enter Atelier pickup hub address in New Delhi.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Initial Wallet Recharge:</strong> Add ₹500 to the shipping wallet for initial label printing (Delhivery, BlueDart, BlrExpress).
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Verify Live Tracking:</strong> In <span class="code-inline">/admin</span> under <strong>Orders</strong>, update an order status to "Shipped" and enter a tracking number. Visit <span class="code-inline">/track</span> to verify the status pills update properly.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PHASE 5: CLOUD DEPLOYMENT & DOMAIN -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-amber">Phase 5</span>
+          <span class="phase-title">Custom Domain & Free Cloud Hosting (Vercel)</span>
+        </div>
+        <span class="phase-eta">⏱ 10 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Push Repository to GitHub:</strong> Ensure latest changes are committed: <span class="code-inline">git add . && git commit -m "Production release" && git push</span>.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Deploy on Vercel:</strong> Import the repo at <span class="code-inline">vercel.com</span> (Hobby Tier — $0/month). Add environment variables: <span class="code-inline">NEXT_PUBLIC_ADMIN_PIN</span>, <span class="code-inline">NEXT_PUBLIC_RAZORPAY_KEY_ID</span>. Hit <strong>Deploy</strong>.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Point Custom Domain:</strong> Under Vercel <strong>Project Settings → Domains</strong>, add <span class="code-inline">houseofaddya.com</span>. In the domain registrar (GoDaddy, Namecheap, Hostinger):
+            <br>• Add <strong>A Record</strong>: <span class="code-inline">@</span> → <span class="code-inline">76.76.21.21</span>
+            <br>• Add <strong>CNAME Record</strong>: <span class="code-inline">www</span> → <span class="code-inline">cname.vercel-dns.com</span>
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Verify Automatic SSL:</strong> Confirm HTTPS certificate is generated and green padlock shows on <span class="code-inline">https://houseofaddya.com</span>.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PHASE 6: STORE SETTINGS -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-pink">Phase 6</span>
+          <span class="phase-title">Store Settings & Business Information Review</span>
+        </div>
+        <span class="phase-eta">⏱ 3 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Update WhatsApp Number:</strong> In <span class="code-inline">/admin</span> Store Settings, input Addya's official customer care WhatsApp number for the floating concierge widget.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Verify GSTIN & Business Address:</strong> Check Atelier address and return logistics address.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Review Promo Coupons:</strong> In <span class="code-inline">/admin</span> Coupons, ensure launch codes <span class="code-inline">ADDYA10</span> (10% off) and <span class="code-inline">FREESHIP</span> are active.
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- PHASE 7: QA TESTING -->
+    <div class="phase-card">
+      <div class="phase-header">
+        <div class="phase-title-wrap">
+          <span class="phase-tag tag-emerald">Phase 7</span>
+          <span class="phase-title">Pre-Handover End-to-End QA Testing</span>
+        </div>
+        <span class="phase-eta">⏱ 5 mins</span>
+      </div>
+      <ul class="checklist">
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Mock Order Checkout:</strong> Select an outfit piece → pick size & color → add to cart → proceed to checkout → submit simulated UPI order → verify confetti burst and order confirmation ID.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Mobile Responsiveness Check:</strong> Open storefront and <span class="code-inline">/admin</span> on iPhone and Android browsers to confirm buttery-smooth touch interactions.
+          </div>
+        </li>
+        <li class="check-item">
+          <div class="checkbox"></div>
+          <div class="check-text">
+            <strong>Self-Service Catalog Test:</strong> In <span class="code-inline">/admin</span>, add a test piece, adjust its stock by +5, and delete it to verify the real-time reactivity.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECTION 3: OWNER GUIDE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2 class="section-title">Owner Self-Service Cheat-Sheet (Give to Addya)</h2>
+      <span class="section-desc">Addya's daily operating handbook</span>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Goal / Action</th>
+          <th>What Addya Does In /admin</th>
+          <th>Storefront Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Add New Outfit</strong></td>
+          <td>Taps <strong>+ Add New Product</strong> → snaps photo with phone camera → sets price ₹1,899 → sets sizes XS-XL stock → clicks <strong>Save & Publish</strong></td>
+          <td>Instantly live on homepage, lookbooks, search, and catalog</td>
+        </tr>
+        <tr>
+          <td><strong>Adjust Piece Stock</strong></td>
+          <td>Taps <strong>+1</strong> or <strong>-1</strong> stepper on product card, or taps <strong>(Adjust Sizes)</strong> to change specific XS/S/M/L counts</td>
+          <td>Live inventory updates immediately; prevents overselling</td>
+        </tr>
+        <tr>
+          <td><strong>Mark As Sold Out</strong></td>
+          <td>Taps <strong>Mark Sold Out</strong> button on any piece</td>
+          <td>Garment displays chic dark "SOLD OUT" badge; checkout disabled</td>
+        </tr>
+        <tr>
+          <td><strong>Remove / Delete Piece</strong></td>
+          <td>Clicks <strong>Trash Icon</strong> → confirms deletion in popup modal</td>
+          <td>Immediately purged from the store and customer search</td>
+        </tr>
+        <tr>
+          <td><strong>Fulfill Order</strong></td>
+          <td>Opens <strong>Orders</strong> tab → pastes Shiprocket AWB tracking number → marks as "Shipped"</td>
+          <td>Customer tracks shipment in real-time on <span class="code-inline">/track</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: CLIENT HANDOVER PROTOCOL -->
+  <div class="handover-box">
+    <div class="handover-title editorial">Phase 8: Client 10-Minute Handover Call Agenda</div>
+    <p style="font-size: 8pt; color: #FBCFE8;">Follow this exact meeting script when walking Addya through the platform on Google Meet or phone:</p>
+
+    <div class="agenda-grid">
+      <div class="agenda-card">
+        <div class="agenda-time">Minutes 0–2</div>
+        <div class="agenda-heading">Storefront Wow</div>
+        <div class="agenda-desc">Showcase homepage video hero, ticker, pink lookbooks, size guide, and cart drawer.</div>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-time">Minutes 2–6</div>
+        <div class="agenda-heading">Admin Autonomy</div>
+        <div class="agenda-desc">Demonstrate adding a dress from phone camera, adjusting size stock, and deleting an item.</div>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-time">Minutes 6–8</div>
+        <div class="agenda-heading">Orders & Shipping</div>
+        <div class="agenda-desc">Show where customer orders appear and how entering an AWB powers the live tracking timeline.</div>
+      </div>
+      <div class="agenda-card">
+        <div class="agenda-time">Minutes 8–10</div>
+        <div class="agenda-heading">Passkey Handover</div>
+        <div class="agenda-desc">Give Addya her custom 4-digit PIN, verify access on her phone, and hand over logins.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    House of Addya Platform Architecture & Implementation Checklist • Handcrafted with love by Prateek Raj • 100% Free Hosting Guarantee
+  </div>
+
+</body>
+</html>
